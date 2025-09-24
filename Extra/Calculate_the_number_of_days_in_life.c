@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int birth_day, birth_month, birth_year, current_day, birth_month, birth_year, current_day, current_month, current_year, days, leap_sum;
+int birth_day, birth_month, birth_year, current_day, current_month, current_year, days, leap_sum;
 int month_to_days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
 void months_and_days()
