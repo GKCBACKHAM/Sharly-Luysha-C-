@@ -90,42 +90,87 @@ void tarot_draw()
     printf("芳乃：你抽到的塔罗牌是——%s\n", tarot_cards[idx]);
 }
 
+int intimacy = 0; // 亲密度变量
+
+void show_intimacy()
+{
+    printf("芳乃：我们的亲密度是 %d 哦！\n", intimacy);
+}
+
+void play_game()
+{
+    int answer = rand() % 100 + 1;
+    int guess, tries = 0;
+    printf("芳乃：来玩猜数字吧！我想了一个 1~100 的数字，你来猜猜看。\n");
+    while (1)
+    {
+        printf("请输入你的猜测：");
+        scanf("%d", &guess);
+        tries++;
+        if (guess < answer)
+            printf("芳乃：再大一点哦！\n");
+        else if (guess > answer)
+            printf("芳乃：再小一点哦！\n");
+        else
+        {
+            printf("芳乃：恭喜你猜对啦！你一共猜了 %d 次。\n", tries);
+            intimacy += 2;
+            break;
+        }
+    }
+}
+
 int main()
 {
     SetConsoleOutputCP(65001);
     srand((unsigned int)time(NULL));
     char command[20];
-    printf("芳乃：请告诉芳乃要做什么吧（输入 morning/night/count/time/draw/fortune/tarot 选择功能，输入 exit 退出）：\n");
+    printf("芳乃：请告诉芳乃要做什么吧（输入 morning/night/count/time/draw/fortune/tarot/intimacy/game 选择功能，输入 exit 退出）：\n");
     while (1)
     {
         scanf("%s", command);
         if (strcmp(command, "morning") == 0)
         {
             say_good_morning();
+            intimacy++;
         }
         else if (strcmp(command, "night") == 0)
         {
             say_good_night();
+            intimacy++;
         }
         else if (strcmp(command, "count") == 0)
         {
             count_numbers();
+            intimacy++;
         }
         else if (strcmp(command, "time") == 0)
         {
             report_time();
+            intimacy++;
         }
         else if (strcmp(command, "draw") == 0)
         {
             draw_card();
+            intimacy++;
         }
         else if (strcmp(command, "fortune") == 0)
         {
             fortune_today();
+            intimacy++;
         }
         else if (strcmp(command, "tarot") == 0)
         {
             tarot_draw();
+            intimacy++;
+        }
+        else if (strcmp(command, "intimacy") == 0)
+        {
+            show_intimacy();
+        }
+        else if (strcmp(command, "game") == 0)
+        {
+            play_game();
         }
         else if (strcmp(command, "exit") == 0)
         {
