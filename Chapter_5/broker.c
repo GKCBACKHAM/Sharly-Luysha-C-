@@ -22,9 +22,9 @@ int main(void)
     if (commission_1 < 39.00f)
         commission_1 = 39.00f;
     if (num < 2000)
-        commission_2 = num * 33.03;
+        commission_2 = num * .03f + 33.00f;
     else
-        commission_2 = num * 33.02;
+        commission_2 = num * .02f + 33.00f;
     printf("The original commission: $%.2f\nThe other: $%.2f", commission_1, commission_2);
     return 0;
 }
