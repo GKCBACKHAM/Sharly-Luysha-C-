@@ -13,9 +13,7 @@ int main()
     scanf("%d", &n);
     double sum = 1.0;
     for (int i = 1; i <= n; i++)
-    {
         sum += (double)1 / factorial(i);
-    }
     printf("e = %.15f\n", sum);
     return 0;
 }
