@@ -22,7 +22,6 @@ int main(void)
     strcpy(smallest, word);
     strcpy(largest, word);
     if (strlen(word) != 4)
-    {
         for (;;)
         {
             printf("Enter a word: ");
@@ -36,7 +35,6 @@ int main(void)
             if (strlen(word) == 4)
                 break;
         }
-    }
     printf("Smallest word: %s\n", smallest);
     printf("Largest word: %s\n", largest);
     return 0;
