@@ -1,78 +1,43 @@
 #include <stdio.h>
-#include <stdbool.h>
 #include <string.h>
 
-bool string_length(char *str)
+#define MAX_WORD 20
+
+static void trim_newline(char *s)
 {
-    int length = 0;
-    while (*str != '\0' && *str != '\n')
-    {
-        length++;
-        str++;
-    }
-    return (length != 4) ? true : false;
+    size_t len = strlen(s);
+    if (len > 0 && s[len - 1] == '\n')
+        s[len - 1] = '\0';
 }
 
-bool str_smallest(char *str, char *smallest)
+int main(void)
 {
-    while (1)
-    {
-        if ((*str == '\0' || *str == '\n') && (*smallest != '\0' || *smallest != '\n'))
-            return true;
-        else if ((*str == '\0' || *str == '\n') && (*smallest == '\0' || *smallest == '\n'))
-            return false;
-        else if ((*str != '\0' || *str != '\n') && (*smallest == '\0' || *smallest == '\n'))
-            return false;
-        if (*str < *smallest)
-            return true;
-        else if (*str > *smallest)
-            return false;
-        str++;
-        smallest++;
-    }
-}
-
-bool str_largest(char *str, char *largest)
-{
-    while (1)
-    {
-        if ((*str == '\0' || *str == '\n') && (*largest != '\0' || *largest != '\n'))
-            return false;
-        else if ((*str == '\0' || *str == '\n') && (*largest == '\0' || *largest == '\n'))
-            return false;
-        else if ((*str != '\0' || *str != '\n') && (*largest == '\0' || *largest == '\n'))
-            return true;
-        if (*str < *largest)
-            return false;
-        else if (*str > *largest)
-            return true;
-        str++;
-        largest++;
-    }
-}
-
-int main()
-{
-    char smallest[21] = "";
-    char largest[21] = "";
-    char str[21] = "";
+    char smallest[MAX_WORD + 1] = "";
+    char largest[MAX_WORD + 1] = "";
+    char word[MAX_WORD + 1] = "";
     printf("Enter a word: ");
-    fgets(str, 20, stdin);
-    strcpy(smallest, str);
-    strcpy(largest, str);
-    if (string_length(str))
+    if (fgets(word, sizeof word, stdin) == NULL)
+        return 0;
+    trim_newline(word);
+    strcpy(smallest, word);
+    strcpy(largest, word);
+    if (strlen(word) != 4)
     {
-        do
+        for (;;)
         {
             printf("Enter a word: ");
-            fgets(str, 20, stdin);
-            if (str_smallest(str, smallest))
-                strcpy(smallest, str);
-            if (str_largest(str, largest))
-                strcpy(largest, str);
-        } while (string_length(str));
+            if (fgets(word, sizeof word, stdin) == NULL)
+                break;
+            trim_newline(word);
+            if (strcmp(word, smallest) < 0)
+                strcpy(smallest, word);
+            if (strcmp(word, largest) > 0)
+                strcpy(largest, word);
+            if (strlen(word) == 4)
+                break;
+        }
     }
-    printf("Smallest word: %s", smallest);
-    printf("Largest word: %s", largest);
+    printf("Smallest word: %s\n", smallest);
+    printf("Largest word: %s\n", largest);
     return 0;
 }
